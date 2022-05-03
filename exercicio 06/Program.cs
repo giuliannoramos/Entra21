@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Questão_6
+namespace exercicio6
 {
     class Program
     {
@@ -18,13 +18,13 @@ namespace Questão_6
             verificar1 = (ano % 4) == 0;
             verificar2 = (ano % 100) > 0;
             verificar3 = (ano % 400) == 0;
-                        
-            
-            if ( verificar1 )
-            {             
-                
-                    Console.WriteLine("O ano : " + ano + " é bissexto");             
-                
+
+
+            if (verificar1)
+            {
+
+                Console.WriteLine("O ano : " + ano + " é bissexto");
+
             }
 
 
@@ -34,13 +34,13 @@ namespace Questão_6
                 {
                     Console.WriteLine("O ano : " + ano + " é bissexto");
                 }
-                
+
                 else
                 {
                     Console.WriteLine("O ano : " + ano + " não é bissexto");
-                }                                
-            }           
-                       
+                }
+            }
+
 
         }
     }
