@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace exercicio_fixaçao_6_7
+namespace exercicio_fixaçao_6
 {
     class Program
     {

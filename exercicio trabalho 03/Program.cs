@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace exercicio3
+namespace exercicio_trabalho_3
 {
     class Program
     {
