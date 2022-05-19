@@ -22,6 +22,7 @@ namespace Lista_1_Exercicio_2
 
             IMC = (peso / altura * 2);
             Console.WriteLine("seu IMC é:" + IMC);
+
         }
     }
 }
