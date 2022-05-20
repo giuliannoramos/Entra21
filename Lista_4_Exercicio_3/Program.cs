@@ -6,46 +6,45 @@ namespace Lista_4_Exercicio_3
     {
         static void Main(string[] args)
         {
-            int valor;
-            
+            int numero;
+            int[] retorno;
 
-            Console.WriteLine("Defina o valor: ");
-            valor = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" Digite um numero: ");
+            numero = Convert.ToInt32(Console.ReadLine());
 
-            int tamanhoArray = Convert.ToInt32(valor);
-            int[] divisiveis = new int[tamanhoArray]; 
+            retorno = AcharDivisores(numero);
+            MostrarDivisores(retorno);
+        }       
 
-            for (int i = 1; i < tamanhoArray; i++)
+
+
+        static void MostrarDivisores(int[] divisores)
+        {
+            Console.WriteLine(" Os divisores são: ");
+            for (int i = 0; i < divisores.Length; i++)
             {
-                int valorDividido = valor / i;
-
-                if (valorDividido % 2 == 0)
+                if (divisores[i] > 0)
                 {
-                    divisiveis[i] = i;
-                    Console.WriteLine($" {divisiveis[i]} ");
+                    Console.WriteLine(divisores[i]);
                 }
-                
             }
-
         }
 
-        
 
 
+        static int[] AcharDivisores(int numero)
+        {            
+            int[] divisores = new int[numero + 1];
 
-        //static int VerificarDivisiveis(int[] tamanhoArray, int[] divisiveis, int divisor)
-        //{
-
-        //    for (int i = 1; i < tamanhoArray.Length; i++)
-        //    {
-        //        Console.WriteLine(" Digite um número : ");
-        //        tamanhoArray[i] = Convert.ToInt32(Console.ReadLine());
-        //    }
-
-        //    return divisor;
-
-        //}
-
+            for (int i = 1; i < divisores.Length; i++)
+            {                
+                if (numero % i == 0)
+                {
+                    divisores[i] = i;
+                }
+            }           
+            return divisores;
+        }
 
     }
 }
