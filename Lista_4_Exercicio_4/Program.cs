@@ -10,7 +10,7 @@ namespace Lista_4_Exercicio_4
             //int posicao = 1;
             int posicao2 = 1;
 
-            int[] media = new int[10];        
+            double[] media = new double[10];        
 
             //pede nome dos alunos;
             //Console.WriteLine($" Insira os nomes dos 10 alunos: ");
@@ -24,7 +24,7 @@ namespace Lista_4_Exercicio_4
 
             //pede nota 1 dos alunos;
             //Console.WriteLine($" Insira a primeira nota de cada aluno: ");
-            int[] nota1 = new int[10] { 70, 60, 70, 60, 70, 60, 70, 60, 70, 60 };
+            double[] nota1 = new double[10] { 7, 6.5, 7, 6, 7, 6, 7, 6, 7, 6 };
             //for (int i = 0; i < 10; i++)
             //{
             //    Console.WriteLine($" O aluno {aluno[i]} tirou nota: ");
@@ -34,7 +34,7 @@ namespace Lista_4_Exercicio_4
 
             //pede nota 2 dos alunos;
             //Console.WriteLine($" Insira a segunda nota de cada aluno: ");
-            int[] nota2 = new int[10] { 70, 60, 70, 60, 70, 60, 70, 60, 70, 60 };
+            double[] nota2 = new double[10] { 7, 6.5, 7, 6, 7, 6, 7, 6, 7, 6 };
             //for (int i = 0; i < 10; i++)
             //{
             //    Console.WriteLine($" O aluno {aluno[i]} tirou nota: ");
@@ -44,7 +44,7 @@ namespace Lista_4_Exercicio_4
 
             //pede nota 3 dos alunos;
             //Console.WriteLine($" Insira a terceira nota de cada aluno: ");
-            int[] nota3 = new int[10] { 70, 60, 70, 60, 70, 60, 70, 60, 70, 60 };
+            double[] nota3 = new double[10] { 7, 6.5, 7, 6, 7, 6, 7, 6, 7, 6 };
             //for (int i = 0; i < 10; i++)
             //{
             //    Console.WriteLine($" O aluno {aluno[i]} tirou nota: ");
@@ -53,7 +53,7 @@ namespace Lista_4_Exercicio_4
                        
 
             CalcularMedia(media, nota1, nota2, nota3);
-            PassouRodou(media, posicao2, aluno);
+            MostrarPassouRodou(media, posicao2, aluno);
 
 
             //mostra os dados
@@ -65,7 +65,7 @@ namespace Lista_4_Exercicio_4
 
         }
 
-        public static int[] CalcularMedia( int[] media, int[] nota1, int[] nota2, int[] nota3)
+        public static double[] CalcularMedia(double[] media, double[] nota1, double[] nota2, double[] nota3)
         {
             //calcula as medias;
             
@@ -76,26 +76,26 @@ namespace Lista_4_Exercicio_4
             return media;
         }
 
-        public static bool[] PassouRodou( int[] media, int posicao2, string[] aluno)
+        public static bool[] MostrarPassouRodou(double[] media, double posicao2, string[] aluno)
         {
 
             // mostra se passou ou rodou
-            bool[] situacao = new bool[10];
+            bool[] condicao = new bool[10];
             for (int i = 0; i < 10; i++)
             {
-                if (media[i] >= 70)
+                if (media[i] >= 7)
                 {
-                    situacao[i] = true;
+                    condicao[i] = true;
                     Console.WriteLine($" {posicao2++} {aluno[i]} Aprovado ");
                 }
                 else
                 {
-                    situacao[i] = false;
+                    condicao[i] = false;
                     Console.WriteLine($" {posicao2++} {aluno[i]} Reprovado ");
                 }
 
             }
-            return situacao;
+            return condicao;
         }
                
 

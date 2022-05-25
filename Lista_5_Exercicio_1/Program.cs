@@ -1,23 +1,24 @@
 ﻿using System;
 
 namespace Lista_5_Exercicio_1
+//    1. Faça um programa(usando funções) que receba 3 notas de 10
+//alunos:
+
+//a.O programa deve calcular a média, descartando a menor nota
+//de cada aluno.Ao final, deve mostrar a maior e a menor nota
+//(de cada aluno).
+
+//b.Mostre também uma média geral da turma, a nota mais alta e
+//a nota mais baixa.
 {
     class Program
     {
         static void Main(string[] args)
-        {
-
-            //int posicao = 1;
-            
-            int menor = 0;
-            int meio = 0;
-            int maior = 0;
-            int[] media = new int[10];
-
+        {         
 
             //pede nome dos alunos;
             //Console.WriteLine($" Insira os nomes dos 10 alunos: ");
-            string[] aluno = new string[10] { "Hugo", "Thiago", "Frederico", "Maurício", "Kelvin", "Felipe", "José", "Douglas", "Pedro", "Gustavo" };
+            string[] aluno = new string[10] { "Aluno1", "Aluno2", "Aluno3", "Aluno4", "Aluno5", "Aluno6", "Aluno7", "Aluno8", "Aluno9", "Aluno10" };
             //for (int i = 0; i < 10; i++)
             //{                
             //    Console.WriteLine($" Aluno {posicao++}: ");
@@ -26,70 +27,67 @@ namespace Lista_5_Exercicio_1
 
 
             //pede as notas dos alunos;
-            Console.WriteLine($" Insira as notas de cada aluno: ");
-            int[] nota1 = new int[10];
-            int[] nota2 = new int[10];
-            int[] nota3 = new int[10];
+            Console.WriteLine($" Insira as 3 notas dos 10 alunos: ");
+            double[] nota1 = new double[10];
+            double[] nota2 = new double[10];
+            double[] nota3 = new double[10];
 
             for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine($" Insira a primeira nota do aluno: ");
-                Console.WriteLine($" {aluno[i]} tirou nota: ");
-                nota1[i] = Convert.ToInt32(Console.ReadLine());
+            {                
+                Console.WriteLine($" A primeira nota de {aluno[i]} foi: ");
+                nota1[i] = Convert.ToDouble(Console.ReadLine());
+                                
+                Console.WriteLine($" A segunda nota de {aluno[i]} foi: ");
+                nota2[i] = Convert.ToDouble(Console.ReadLine());
 
-                Console.WriteLine($" Insira a segunda nota do aluno: ");
-                Console.WriteLine($" {aluno[i]} tirou nota: ");
-                nota2[i] = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine($" Insira a terceira nota do aluno: ");
-                Console.WriteLine($" {aluno[i]} tirou nota: ");
-                nota3[i] = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine($" A terceira e última nota de {aluno[i]} foi: ");
+                nota3[i] = Convert.ToDouble(Console.ReadLine());
             }
-
-            int[] notasOrdenadas = new int[3];
-
-            for (int i = 0; i < 10; i++)
-            {
-                notasOrdenadas[0] = nota1[i];
-                notasOrdenadas[1] = nota2[i];
-                notasOrdenadas[2] = nota3[i];
-                OrdenarArray(notasOrdenadas);
-                nota1[i] = notasOrdenadas[0];
-                nota2[i] = notasOrdenadas[1];
-                nota3[i] = notasOrdenadas[2];
-
-            }                      
             
+            double[] menor = NotaMenorAluno(aluno, nota1, nota2, nota3);           
+            MediaAluno(nota1, nota2, nota3, menor, aluno);
                         
-
         }
 
-        static int[] OrdenarArray(int[] notasOrdenadas)
+        static double[] NotaMenorAluno(string[] aluno, double[] nt1, double[] nt2, double[] nt3)
         {
-            bool flag = true;
-            int temp;
-            int numLength = notasOrdenadas.Length;
+            double[] condicao = new double[10];
 
-            //sorting an array  
-            for (int i = 1; (i <= (numLength - 1)) && flag; i++)
+            for (int i = 0; i < 10; i++)
             {
-                flag = false;
-                for (int j = 0; j < (numLength - 1); j++)
+                if (nt1[i] <= nt2[i] & nt1[i] <= nt3[i])
                 {
-                    if (notasOrdenadas[j + 1] < notasOrdenadas[j])
-                    {
-                        temp = notasOrdenadas[j];
-                        notasOrdenadas[j] = notasOrdenadas[j + 1];
-                        notasOrdenadas[j + 1] = temp;
-                        flag = true;
-                    }
+                    nt1[i] = condicao[i];                    
                 }
+                else if (nt2[i] <= nt1[i] & nt2[i] <= nt3[i])
+                {
+                    nt2[i] = condicao[i];                    
+                }
+                else if (nt3[i] <= nt2[i] & nt3[i] <= nt1[i])
+                {
+                    nt3[i] = condicao[i];                   
+                }                
+            }
+            return condicao;
+        }
+
+        static double[] MediaAluno(double[] nt1, double[] nt2, double[] nt3, double[] ntMenor, string[] aluno)
+        {
+            double[] condicao = new double[10];
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine($" A menor nota do {aluno[i]} é {ntMenor[i]}.");
             }
 
-            return notasOrdenadas;
-            // Array.Sort(valor);
+            for (int i = 0; i < 10; i++)
+            {             
+                condicao[i] = (nt1[i] + nt2[i] + nt3[i] - ntMenor[i]) / 2;
+                Console.WriteLine($" A média das notas do {aluno[i]} descartando sua menor nota é {condicao[i]}.");
+            }
+            return condicao;
         }
-
-
+               
+                
     }
 }
