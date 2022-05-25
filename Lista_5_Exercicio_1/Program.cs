@@ -1,32 +1,25 @@
 ﻿using System;
 
 namespace Lista_5_Exercicio_1
-//    1. Faça um programa(usando funções) que receba 3 notas de 10
-//alunos:
-
-//a.O programa deve calcular a média, descartando a menor nota
-//de cada aluno.Ao final, deve mostrar a maior e a menor nota
-//(de cada aluno).
-
-//b.Mostre também uma média geral da turma, a nota mais alta e
-//a nota mais baixa.
 {
+    //    1. Faça um programa(usando funções) que receba 3 notas de 10
+    //alunos:
+
+    //a.O programa deve calcular a média, descartando a menor nota
+    //de cada aluno.Ao final, deve mostrar a maior e a menor nota
+    //(de cada aluno).
+
+    //b.Mostre também uma média geral da turma, a nota mais alta e
+    //a nota mais baixa.
+
     class Program
     {
         static void Main(string[] args)
-        {         
-
-            //pede nome dos alunos;
-            //Console.WriteLine($" Insira os nomes dos 10 alunos: ");
+        {   
+            
             string[] aluno = new string[10] { "Aluno1", "Aluno2", "Aluno3", "Aluno4", "Aluno5", "Aluno6", "Aluno7", "Aluno8", "Aluno9", "Aluno10" };
-            //for (int i = 0; i < 10; i++)
-            //{                
-            //    Console.WriteLine($" Aluno {posicao++}: ");
-            //    aluno[i] = Convert.ToString(Console.ReadLine());
-            //}
-
-
-            //pede as notas dos alunos;
+            
+            
             Console.WriteLine($" Insira as 3 notas dos 10 alunos: ");
             double[] nota1 = new double[10];
             double[] nota2 = new double[10];
@@ -44,12 +37,13 @@ namespace Lista_5_Exercicio_1
                 nota3[i] = Convert.ToDouble(Console.ReadLine());
             }
             
-            double[] menor = NotaMenorAluno(aluno, nota1, nota2, nota3);           
+            double[] menor = NotaMenorAluno(nota1, nota2, nota3);           
             MediaAluno(nota1, nota2, nota3, menor, aluno);
-                        
+              
+            
         }
 
-        static double[] NotaMenorAluno(string[] aluno, double[] nt1, double[] nt2, double[] nt3)
+        static double[] NotaMenorAluno(double[] nt1, double[] nt2, double[] nt3)
         {
             double[] condicao = new double[10];
 

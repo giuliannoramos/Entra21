@@ -53,7 +53,7 @@ namespace Lista_4_Exercicio_4
                        
 
             CalcularMedia(media, nota1, nota2, nota3);
-            MostrarPassouRodou(media, posicao2, aluno);
+            PassouRodou(media, posicao2, aluno);
 
 
             //mostra os dados
@@ -76,7 +76,7 @@ namespace Lista_4_Exercicio_4
             return media;
         }
 
-        public static bool[] MostrarPassouRodou(double[] media, double posicao2, string[] aluno)
+        public static bool[] PassouRodou(double[] media, double posicao2, string[] aluno)
         {
 
             // mostra se passou ou rodou
