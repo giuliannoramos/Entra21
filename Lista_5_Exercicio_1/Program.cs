@@ -19,7 +19,6 @@ namespace Lista_5_Exercicio_1
 
             string[] aluno = new string[10] { "Aluno1", "Aluno2", "Aluno3", "Aluno4", "Aluno5", "Aluno6", "Aluno7", "Aluno8", "Aluno9", "Aluno10" };
 
-
             Console.WriteLine($" Insira as 3 notas dos 10 alunos: ");
             double[] nota1 = new double[10];
             double[] nota2 = new double[10];
@@ -28,9 +27,9 @@ namespace Lista_5_Exercicio_1
             Random random = new Random();
 
             for (int i = 0; i < 10; i++)
-            {             
+            {
                 nota1[i] = random.NextDouble() * 10;
-                Console.WriteLine($"{aluno[i]} tirou {nota1[i]}");                
+                Console.WriteLine($"{aluno[i]} tirou {nota1[i]}");
                 nota2[i] = random.NextDouble() * 10;
                 Console.WriteLine($"{aluno[i]} tirou {nota2[i]}");
                 nota3[i] = random.NextDouble() * 10;
@@ -46,56 +45,155 @@ namespace Lista_5_Exercicio_1
                 //nota3[i] = Convert.ToDouble(Console.ReadLine());
             }
 
-            double[] menor = NotaMenorAluno(nota1, nota2, nota3);            
-            MediaAluno(nota1, nota2, nota3, menor, aluno);
-            
+            double[] MaiorIndividual = MaiorNotaIndividual(nota1, nota2, nota3);
+            double[] MenorIndividual = MenorNotaIndividual(nota1, nota2, nota3);
+            double[] MediaIndividual = MediaNotaIndividual(nota1, nota2, nota3, MenorIndividual, MaiorIndividual, aluno);
+            MediaGeral(MediaIndividual);
+            MenorNotaGeral(nota1, nota2, nota3);
+            MaiorNotaGeral(MaiorIndividual);
+
         }
 
-
-        static double[] NotaMenorAluno(double[] nt1, double[] nt2, double[] nt3)
+        static double[] MenorNotaIndividual(double[] nota1, double[] nota2, double[] nota3)
         {
-            double[] condicao = new double[10];
+            double[] MenorNotaIndividual = new double[10];
 
             for (int i = 0; i < 10; i++)
             {
-                if (nt1[i] < nt2[i] && nt1[i] < nt3[i])
+                if (nota1[i] <= nota2[i] && nota1[i] <= nota3[i])
                 {
-                    condicao[i] = nt1[i];
-                    nt1[i] = 0;
+                    MenorNotaIndividual[i] = nota1[i];
                 }
-                else if (nt2[i] < nt1[i] && nt2[i] < nt3[i])
+                else if (nota2[i] <= nota1[i] && nota2[i] <= nota3[i])
                 {
-                    condicao[i] = nt2[i];
-                    nt2[i] = 0;
+                    MenorNotaIndividual[i] = nota2[i];
                 }
-                else if (nt3[i] < nt2[i] && nt3[i] < nt1[i])
+                else if (nota3[i] <= nota2[i] && nota3[i] <= nota1[i])
                 {
-                    condicao[i] = nt3[i];
-                    nt3[i] = 0;
+                    MenorNotaIndividual[i] = nota3[i];
                 }
             }
-            return condicao;
+            return MenorNotaIndividual;
         }
 
-
-        static double[] MediaAluno(double[] nt1, double[] nt2, double[] nt3, double[] ntMenor, string[] aluno)
+        static double[] MaiorNotaIndividual(double[] nota1, double[] nota2, double[] nota3)
         {
-            double[] condicao = new double[10];
+            double[] MaiorNotaIndividual = new double[10];
 
             for (int i = 0; i < 10; i++)
             {
-                Console.WriteLine($" A menor nota de {aluno[i]} é {ntMenor[i]}.");
+                if (nota1[i] >= nota2[i] && nota1[i] >= nota3[i])
+                {
+                    MaiorNotaIndividual[i] = nota1[i];
+                }
+                else if (nota2[i] >= nota1[i] && nota2[i] >= nota3[i])
+                {
+                    MaiorNotaIndividual[i] = nota2[i];
+                }
+                else if (nota3[i] >= nota2[i] && nota3[i] >= nota1[i])
+                {
+                    MaiorNotaIndividual[i] = nota3[i];
+                }
+            }
+            return MaiorNotaIndividual;
+        }
+
+        static double[] MediaNotaIndividual(double[] nota1, double[] nota2, double[] nota3, double[] MenorIndividual, double[] MaiorIndividual, string[] aluno)
+        {
+            double[] MediaNotaIndividual = new double[10];
+
+
+            for (int i = 0; i < 10; i++)
+            {
+                if (nota1[i] <= nota2[i] && nota1[i] <= nota3[i])
+                {
+                    MediaNotaIndividual[i] = (nota2[i] + nota3[i]) / 2;
+                    Console.WriteLine($" A média das notas do {aluno[i]} descartando sua menor nota é {MediaNotaIndividual[i]}.");
+                }
+                else if (nota2[i] <= nota1[i] && nota2[i] <= nota3[i])
+                {
+                    MediaNotaIndividual[i] = (nota1[i] + nota3[i]) / 2;
+                    Console.WriteLine($" A média das notas do {aluno[i]} descartando sua menor nota é {MediaNotaIndividual[i]}.");
+                }
+                else if (nota3[i] <= nota1[i] && nota3[i] <= nota2[i])
+                {
+                    MediaNotaIndividual[i] = (nota2[i] + nota1[i]) / 2;
+                    Console.WriteLine($" A média das notas do {aluno[i]} descartando sua menor nota é {MediaNotaIndividual[i]}.");
+                }
+
             }
 
             for (int i = 0; i < 10; i++)
             {
-                condicao[i] = (nt1[i] + nt2[i] + nt3[i] - ntMenor[i]) / 2;
-                Console.WriteLine($" A média das notas do {aluno[i]} descartando sua menor nota é {condicao[i]}.");
+                Console.WriteLine($" A MAIOR nota de {aluno[i]} é {MaiorIndividual[i]}.");
             }
-            
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine($" A MENOR nota de {aluno[i]} é {MenorIndividual[i]}.");
+            }
+
+            return MediaNotaIndividual;
+        }
+
+        static double MediaGeral(double[] MediaIndividual)
+        {
+            double MediaGeral = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                MediaGeral = MediaIndividual[i] + MediaIndividual[i] / 20;
+            }
+
+            Console.WriteLine($" A MÉDIA GERAL DA TURMA é {MediaGeral}.");
+
+            return MediaGeral;
+        }
+
+        static double MenorNotaGeral(double[] nota1, double[] nota2, double[] nota3)
+        {
+            double MenorNotaGeral = 0;
+
+            for (int i = 0; i < nota1.Length; i++)
+            {
+                if (nota1[i] <= nota2[i] && nota1[i] <= nota3[i] && nota1[i] <= MenorNotaGeral)
+                {
+                    MenorNotaGeral = nota1[i];
+                }
+                else if (nota2[i] <= nota1[i] && nota2[i] <= nota3[i] && nota2[i] <= MenorNotaGeral)
+                {
+                    MenorNotaGeral = nota2[i];
+                }
+                else if (nota3[i] <= nota1[i] && nota3[i] <= nota2[i] && nota3[i] <= MenorNotaGeral)
+                {
+                    MenorNotaGeral = nota3[i];
+                }
+            }
+
+            Console.WriteLine($" A MENOR NOTA DA TURMA é {MenorNotaGeral}.");
+
+            return MenorNotaGeral;
+        }
+
+        static double MaiorNotaGeral(double[] MaiorIndividual)
+        {
+            double condicao = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int u = i; u < 10; u++)
+                {
+                    if (MaiorIndividual[i] > MaiorIndividual[u])
+                    {
+                        condicao = MaiorIndividual[i];
+                    }
+                }
+            }
+
+            Console.WriteLine($" A MAIOR NOTA DA TURMA é {condicao}.");
+
             return condicao;
         }
 
     }
 }
-
