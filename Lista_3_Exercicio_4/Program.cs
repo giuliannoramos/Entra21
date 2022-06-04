@@ -2,6 +2,10 @@
 
 namespace Lista_3_Exercicio_4
 {
+    //Faça um programa que receba o número de entradas(as
+    //entradas devem ser de valores inteiros), mostre se há
+    //elementos repetidos e quantas vezes estes se repetem.
+
     class Program
     {
         static void Main(string[] args)
