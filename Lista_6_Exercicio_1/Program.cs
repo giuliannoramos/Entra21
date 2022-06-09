@@ -35,11 +35,14 @@ namespace Lista_6_Exercicio_1
         public void Bonifica(double valor)
         {
             this.Salario += valor;
+            Console.WriteLine($"Salario atual após bonificação de {valor} é: {Salario}");
         }
 
-        public void Demite(bool status)
+        public void Demite()
         {
-            this.Ativo = status;
+            bool status = false;
+            this.Ativo = status;          
+            Console.WriteLine($"Funcionario foi demitido por justa causa.");
         }
 
 
@@ -62,8 +65,8 @@ namespace Lista_6_Exercicio_1
             Console.WriteLine("Salário:R$" + funcionario2.Salario);
             Console.WriteLine("Admitido em:" + funcionario2.DataAdmissao);
             Console.WriteLine("RG:" + funcionario2.Rg);
-            Console.WriteLine("Ativo:" + funcionario2.Ativo);
-            funcionario2.Demite(false);
+            funcionario2.Demite();
+            Console.WriteLine("Ativo:" + funcionario2.Ativo);            
         }
 
     }
