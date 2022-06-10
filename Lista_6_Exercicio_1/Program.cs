@@ -15,16 +15,21 @@ namespace Lista_6_Exercicio_1
         public string DataAdmissao { get; set; }
         public string Rg { get; set; }
         public bool Ativo { get; set; }
+        
 
-
-        public Funcionario(string Nome, string Departamento, double Salario, string Admissao, string Rg, bool Ativo)
+        public Funcionario(string Nome, string Departamento, double Salario, string DataAdmissao, string Rg, bool Ativo)
         {
             this.Nome = Nome;
+
             this.Departamento = Departamento;
+
             this.Salario = Salario;
-            this.DataAdmissao = Admissao;
-            this.Rg = Rg;
-            this.Ativo = Ativo;
+
+            this.DataAdmissao = Convert.ToUInt64(DataAdmissao).ToString(@"00\/00\/0000"); 
+
+            this.Rg = Convert.ToUInt64(Rg).ToString(@"00\.000\.000\-0");
+
+            this.Ativo = Ativo;            
         }
 
         public Funcionario()
@@ -41,32 +46,58 @@ namespace Lista_6_Exercicio_1
         public void Demite()
         {
             bool status = false;
-            this.Ativo = status;          
+            this.Ativo = status;
             Console.WriteLine($"Funcionario foi demitido por justa causa.");
+        }
+
+        public void PreencherDados()
+        {
+            Console.WriteLine("Insira o nome do funcionário: ");
+            this.Nome = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Insira o departamento: ");
+            this.Departamento = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Insira o salário atual: ");
+            this.Salario = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Insira a data em que foi admitido: ");
+            this.DataAdmissao = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Insira o RG: ");
+            this.Rg = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Ainta esta ativo na empresa? (digite True para sim, ou False para não): ");
+            this.Ativo = Convert.ToBoolean(Console.ReadLine());            
         }
 
 
         static void Main(string[] args)
         {
-            Funcionario funcionario1 = new Funcionario("Giulianno", "Financeiro", 2000, "08/06/2022", "44.480.492-4", true);
+            //preenchimento estático
+            Funcionario funcionario1 = new Funcionario("Giulianno", "Financeiro", 2000, "08062022", "444804924", true);
             Console.WriteLine("Nome:" + funcionario1.Nome);
             Console.WriteLine("Departamento:" + funcionario1.Departamento);
             Console.WriteLine("Salário:R$" + funcionario1.Salario);
             Console.WriteLine("Admitido em:" + funcionario1.DataAdmissao);
             Console.WriteLine("RG:" + funcionario1.Rg);
+            funcionario1.Demite();
             Console.WriteLine("Ativo:" + funcionario1.Ativo);
-            funcionario1.Bonifica(1500);
+            
+
             //pular linha
             Console.WriteLine();
 
-            Funcionario funcionario2 = new Funcionario("Lechinski", "TI", 2500, "08/06/2022", "69.750.298-4", true);
+            //usuário preenche            
+            Funcionario funcionario2 = new Funcionario();
+            funcionario2.PreencherDados();
             Console.WriteLine("Nome:" + funcionario2.Nome);
             Console.WriteLine("Departamento:" + funcionario2.Departamento);
             Console.WriteLine("Salário:R$" + funcionario2.Salario);
             Console.WriteLine("Admitido em:" + funcionario2.DataAdmissao);
-            Console.WriteLine("RG:" + funcionario2.Rg);
-            funcionario2.Demite();
-            Console.WriteLine("Ativo:" + funcionario2.Ativo);            
+            Console.WriteLine("RG:" + funcionario2.Rg);            
+            Console.WriteLine("Ativo:" + funcionario2.Ativo);
+            funcionario2.Bonifica(1500);
         }
 
     }
