@@ -40,7 +40,7 @@ namespace Lista_6_Exercicio_1
         public void Bonifica(double valor)
         {
             this.Salario += valor;
-            Console.WriteLine($"Salario atual após bonificação de {valor} é: {Salario}");
+            Console.WriteLine($"Salario atual após bonificação de {valor} é: {Salario:C2}");
         }
 
         public void Demite()
@@ -78,7 +78,7 @@ namespace Lista_6_Exercicio_1
             Funcionario funcionario1 = new Funcionario("Giulianno", "Financeiro", 2000, "08062022", "444804924", true);
             Console.WriteLine("Nome:" + funcionario1.Nome);
             Console.WriteLine("Departamento:" + funcionario1.Departamento);
-            Console.WriteLine("Salário:R$" + funcionario1.Salario);
+            Console.WriteLine($"Salário:{funcionario1.Salario:C2}");
             Console.WriteLine("Admitido em:" + funcionario1.DataAdmissao);
             Console.WriteLine("RG:" + funcionario1.Rg);
             funcionario1.Demite();
@@ -93,8 +93,8 @@ namespace Lista_6_Exercicio_1
             funcionario2.PreencherDados();
             Console.WriteLine("Nome:" + funcionario2.Nome);
             Console.WriteLine("Departamento:" + funcionario2.Departamento);
-            Console.WriteLine("Salário:R$" + funcionario2.Salario);
-            Console.WriteLine("Admitido em:" + funcionario2.DataAdmissao);
+            Console.WriteLine($"Salário:{funcionario2.Salario:C2}");
+            Console.WriteLine($"Admitido em:{funcionario2.DataAdmissao}");
             Console.WriteLine("RG:" + funcionario2.Rg);            
             Console.WriteLine("Ativo:" + funcionario2.Ativo);
             funcionario2.Bonifica(1500);
