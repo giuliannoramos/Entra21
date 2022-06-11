@@ -35,16 +35,26 @@ namespace Lista_6_Exercicio_4
     -Preço
 
     Observações: 
-    Antes de cadastrar uma venda, o vendedor e o cliente precisam estar cadastrados. Para 
-    o carrinho de compras, deve-se ter uma lista com os produtos adicionados e o cliente.
+    Antes de cadastrar uma venda, o vendedor e o cliente precisam estar cadastrados, assim como o produto (os produtos devem vir do carrinho). 
+    Para o carrinho de compras, deve-se ter uma lista com os produtos adicionados e o cliente.  
 
-
-     */
-    class Program
+    O programa deve ter:
+    Uma opção para cadastrar Vendedor;
+    Uma opção para cadastrar Cliente;
+    Uma opção para cadastrar Produto;
+    Uma opção para inserir um Produto no carrinho de compras;
+    Uma opção para criar uma Venda;
+    Uma opção para finalizar a Venda;
+    Uma opção para limpar o Carrinho;     
+    */
+                           
+    public class Program
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
+        public static void Main(string[] args)
+        {              
+            
+            
         }
     }
 }
+
