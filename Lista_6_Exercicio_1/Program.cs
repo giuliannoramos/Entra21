@@ -40,7 +40,7 @@ namespace Lista_6_Exercicio_1
         public void Bonifica(double valor)
         {
             this.Salario += valor;
-            Console.WriteLine($"Salario atual após bonificação de {valor} é: {Salario:C2}");
+            Console.WriteLine($"Salario atual após bonificação de {valor:C2} é: {Salario:C2}");
         }
 
         public void Demite()
@@ -62,19 +62,18 @@ namespace Lista_6_Exercicio_1
             this.Salario = Convert.ToDouble(Console.ReadLine());
 
             Console.WriteLine("Insira a data em que foi admitido: ");
-            this.DataAdmissao = Convert.ToString(Console.ReadLine());
+            this.DataAdmissao = Convert.ToUInt64(Console.ReadLine()).ToString(@"00\/00\/0000");
 
             Console.WriteLine("Insira o RG: ");
-            this.Rg = Convert.ToString(Console.ReadLine());
+            this.Rg = Convert.ToUInt64(Console.ReadLine()).ToString(@"00\.000\.000\-0");
 
             Console.WriteLine("Ainta esta ativo na empresa? (digite True para sim, ou False para não): ");
             this.Ativo = Convert.ToBoolean(Console.ReadLine());            
         }
 
-
         static void Main(string[] args)
         {
-            //preenchimento estático
+            //preenchimento estático, com construtor preenchido, só posso chamar o que esta dentro do construtor;
             Funcionario funcionario1 = new Funcionario("Giulianno", "Financeiro", 2000, "08062022", "444804924", true);
             Console.WriteLine("Nome:" + funcionario1.Nome);
             Console.WriteLine("Departamento:" + funcionario1.Departamento);
@@ -88,7 +87,7 @@ namespace Lista_6_Exercicio_1
             //pular linha
             Console.WriteLine();
 
-            //usuário preenche            
+            //usuário preenche, com contrutor vazio, posso puxar oq quiser.          
             Funcionario funcionario2 = new Funcionario();
             funcionario2.PreencherDados();
             Console.WriteLine("Nome:" + funcionario2.Nome);
