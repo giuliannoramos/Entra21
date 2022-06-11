@@ -51,15 +51,17 @@ namespace Lista_6_Exercicio_3
     {
         public double ValorTotalVenda { get; set; }
         public Vendedor Vendedor { get; set; }
-        public Cliente Cliente { get; set; }       
+        public Cliente Cliente { get; set; }
 
-        public Venda (double ValorTotalVenda, Vendedor Vendedor, Cliente Cliente)
+        public Venda(double ValorTotalVenda, Vendedor Vendedor, Cliente Cliente)
         {
             this.ValorTotalVenda = ValorTotalVenda;
             this.Vendedor = Vendedor;
             this.Cliente = Cliente;
         }
-
+    }
+    public class Program
+    { 
         static void Main(string[] args)
         {
             Vendedor Vendedor1 = new Vendedor("roberto", "01");
