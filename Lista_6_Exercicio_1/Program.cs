@@ -15,7 +15,7 @@ namespace Lista_6_Exercicio_1
         public string DataAdmissao { get; set; }
         public string Rg { get; set; }
         public bool Ativo { get; set; }
-        
+
 
         public Funcionario(string Nome, string Departamento, double Salario, string DataAdmissao, string Rg, bool Ativo)
         {
@@ -25,11 +25,11 @@ namespace Lista_6_Exercicio_1
 
             this.Salario = Salario;
 
-            this.DataAdmissao = Convert.ToUInt64(DataAdmissao).ToString(@"00\/00\/0000"); 
+            this.DataAdmissao = Convert.ToUInt64(DataAdmissao).ToString(@"00\/00\/0000");
 
             this.Rg = Convert.ToUInt64(Rg).ToString(@"00\.000\.000\-0");
 
-            this.Ativo = Ativo;            
+            this.Ativo = Ativo;
         }
 
         public Funcionario()
@@ -68,9 +68,11 @@ namespace Lista_6_Exercicio_1
             this.Rg = Convert.ToUInt64(Console.ReadLine()).ToString(@"00\.000\.000\-0");
 
             Console.WriteLine("Ainta esta ativo na empresa? (digite True para sim, ou False para não): ");
-            this.Ativo = Convert.ToBoolean(Console.ReadLine());            
+            this.Ativo = Convert.ToBoolean(Console.ReadLine());
         }
-
+    }
+    public class Program
+    { 
         static void Main(string[] args)
         {
             //preenchimento estático, com construtor preenchido, só posso chamar o que esta dentro do construtor;
