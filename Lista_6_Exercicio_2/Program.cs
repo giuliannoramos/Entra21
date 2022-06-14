@@ -185,7 +185,7 @@ namespace Lista_6_Exercicio_2
                 this.CapacidadeCarga = capacidadeCarga;
                 this.QuantidadeMarcha = quantidadeMarcha;
             }
-            
+
             public Caminhao(TipoCacamba tipoCacamba, string eixos, double capacidadeCarga,
                             string quantidadeMarcha, Modelo modelo, Motor motor, Marca marca,
                             string chassis, string ano)

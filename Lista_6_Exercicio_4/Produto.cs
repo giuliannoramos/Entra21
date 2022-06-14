@@ -16,5 +16,6 @@ namespace Lista_6_Exercicio_4
             this.Marca = Marca;
             this.Preco = Preco;
         }
+
     }
 }

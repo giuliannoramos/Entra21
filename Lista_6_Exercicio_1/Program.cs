@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace Lista_6_Exercicio_1
 {
     /*Modele um funcionário.Ele deve ter o nome do funcionário, o departamento onde trabalha, seu salario(double), a data de entrada de admissão(string), seu RG(string) e
