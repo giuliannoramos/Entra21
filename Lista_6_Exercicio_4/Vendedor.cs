@@ -9,20 +9,24 @@ namespace Lista_6_Exercicio_4
         public string NomeVendedor { get; set; }
         public int CodigoCracha { get; set; }
 
-        public Vendedor(string NomeVendedor, int CodigoCracha)
-        {
-            this.NomeVendedor = NomeVendedor;
+        //public Vendedor(string NomeVendedor, int CodigoCracha)
+        //{
+        //    this.NomeVendedor = NomeVendedor;
 
-            this.CodigoCracha = CodigoCracha;
+        //    this.CodigoCracha = CodigoCracha;
+        //}
+
+        public Vendedor()
+        { 
         }
 
-        //public void PreencherDados()
-        //{
-        //    Console.WriteLine("Insira o nome do vendedor: ");
-        //    this.NomeVendedor = Convert.ToString(Console.ReadLine());
-        //    Console.WriteLine("Informe o nome do vendedor:");
-        //    this.NomeVendedor = Console.ReadLine();
-        //    Console.WriteLine("Nome do vendedor:" + this.NomeVendedor);
-        //}
+        public void PreencherDadosVendedor()
+        {
+            Console.WriteLine("Insira o nome do vendedor: ");
+            NomeVendedor = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Insira o código do crachá: ");
+            CodigoCracha = Convert.ToInt32(Console.ReadLine());
+        }
     }
 }
