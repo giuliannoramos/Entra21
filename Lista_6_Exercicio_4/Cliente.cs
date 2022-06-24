@@ -7,7 +7,7 @@ namespace Lista_6_Exercicio_4
     public class Cliente
     {
         public string NomeCliente { get; set; }
-        public string Cpf { get; set; }
+        public int Cpf { get; set; }
         public string Endereco { get; set; }
 
         //public Cliente(string NomeCliente, string Cpf, string Endereco)
@@ -30,7 +30,7 @@ namespace Lista_6_Exercicio_4
             NomeCliente = Convert.ToString(Console.ReadLine());
 
             Console.WriteLine("Insira o CPF: ");
-            Cpf = Convert.ToString(Console.ReadLine());
+            Cpf = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Insira o endereço: ");
             Endereco = Convert.ToString(Console.ReadLine());

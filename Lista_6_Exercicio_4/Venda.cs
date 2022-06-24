@@ -28,12 +28,18 @@ namespace Lista_6_Exercicio_4
         public Cliente Cliente { get; set; }
 
         public List<Produto> Produtos { get; set; } = new List<Produto>();
+        public bool Finalizada { get; set; }
 
         public Venda(CarrinhoDeCompras CarrinhoDeCompras, Vendedor Vendedor, Cliente Cliente)
         {
             this.CarrinhoDeCompras = CarrinhoDeCompras;            
             this.Vendedor = Vendedor;
             this.Cliente = Cliente;
+        }
+
+        public Venda()
+        {
+
         }
 
     }
