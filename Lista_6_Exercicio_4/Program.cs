@@ -56,67 +56,66 @@ namespace Lista_6_Exercicio_4
         {
             Console.WriteLine(" Cadastre dois vendedores");
             List<Vendedor> vendedores = new List<Vendedor>();
-
             //pular linha
             Console.WriteLine();
-
             Console.WriteLine(" Vendedor 1");
             Vendedor vendedor1 = new Vendedor();
-            vendedor1.PreencherDadosVendedor();
-            Console.WriteLine("Nome:" + vendedor1.NomeVendedor);
-            Console.WriteLine("Código do crachá:" + vendedor1.CodigoCracha);
+            vendedor1.PreencherDadosVendedor();            
             vendedores.Add(vendedor1);
-
             //pular linha
             Console.WriteLine();
-
             Console.WriteLine(" Vendedor 2");
             Vendedor vendedor2 = new Vendedor();
-            vendedor2.PreencherDadosVendedor();
-            Console.WriteLine("Nome:" + vendedor2.NomeVendedor);
-            Console.WriteLine("Código do crachá:" + vendedor2.CodigoCracha);
-            vendedores.Add(vendedor2);
-
+            vendedor2.PreencherDadosVendedor();            
+            vendedores.Add(vendedor2);            
             //pular linha
             Console.WriteLine();
-            //pular linha
-            Console.WriteLine();
-
             Console.WriteLine(" Cadastre dois clientes");
             List<Cliente> Clientes = new List<Cliente>();
-
             //pular linha
             Console.WriteLine();
-
             Console.WriteLine(" Cliente 1");
             Cliente cliente1 = new Cliente();
-            cliente1.PreencherDadosCliente();
+            cliente1.PreencherDadosCliente();            
+            Clientes.Add(cliente1);
+            //pular linha
+            Console.WriteLine();
+            Console.WriteLine(" Cliente 2");
+            Cliente cliente2 = new Cliente();
+            cliente2.PreencherDadosCliente();            
+            Clientes.Add(cliente2);
+            //pular linha
+            Console.WriteLine();
+            Console.WriteLine("VENDEDOR 1");
+            Console.WriteLine("Nome:" + vendedor1.NomeVendedor);
+            Console.WriteLine("Código do crachá:" + vendedor1.CodigoCracha);
+            //pular linha
+            Console.WriteLine();
+            Console.WriteLine("VENDEDOR 2");
+            Console.WriteLine("Nome:" + vendedor2.NomeVendedor);
+            Console.WriteLine("Código do crachá:" + vendedor2.CodigoCracha);
+            //pular linha
+            Console.WriteLine();
+            Console.WriteLine("CLIENTE 1");
             Console.WriteLine("Nome:" + cliente1.NomeCliente);
             Console.WriteLine("CPF:" + cliente1.Cpf);
             Console.WriteLine("Endereço:" + cliente1.Endereco);
-            Clientes.Add(cliente1);
-
             //pular linha
             Console.WriteLine();
-
-            Console.WriteLine(" Cliente 2");
-            Cliente cliente2 = new Cliente();
-            cliente2.PreencherDadosCliente();
+            Console.WriteLine("CLIENTE 2");
             Console.WriteLine("Nome:" + cliente2.NomeCliente);
             Console.WriteLine("CPF:" + cliente2.Cpf);
             Console.WriteLine("Endereço:" + cliente2.Endereco);
-            Clientes.Add(cliente2);
-
             //pular linha
-            Console.WriteLine();            
+            Console.WriteLine();
 
             List<Produto> Produtos = new List<Produto>();
-            Produto produto1 = new Produto(1, "Tênis", "Nike", 550);
-            Produto produto2 = new Produto(2, "Tênis", "Adidas", 400);
-            Produto produto3 = new Produto(3, "Tênis", "Puma", 300);
-            Produto produto4 = new Produto(4, "Camiseta", "Nike", 100);
-            Produto produto5 = new Produto(5, "Camiseta", "Adidas", 100);
-            Produto produto6 = new Produto(6, "Camiseta", "Puma", 100);
+            Produto produto1 = new Produto(1, "Maçã", "Hortifruti", 4);
+            Produto produto2 = new Produto(2, "Banana", "Hortifruti", 3.5);
+            Produto produto3 = new Produto(3, "Alcatra", "Carnes", 35.9);
+            Produto produto4 = new Produto(4, "Maminha", "Carnes", 35.9);
+            Produto produto5 = new Produto(5, "Suco de uva", "Bebidas", 8);
+            Produto produto6 = new Produto(6, "Coca cola", "Bebidas", 7.9);
             Produtos.Add(produto1);
             Produtos.Add(produto2);
             Produtos.Add(produto3);
@@ -124,13 +123,18 @@ namespace Lista_6_Exercicio_4
             Produtos.Add(produto5);
             Produtos.Add(produto6);
 
-            Console.WriteLine(" - Vendedores cadastrados com sucesso");
-            Console.WriteLine(" - Clientes cadastrados com sucesso");
-            Console.WriteLine(" - Produtos cadastrados com sucesso");
+            Console.WriteLine(" Vendedores cadastrados com sucesso");
+            Console.WriteLine(" Clientes cadastrados com sucesso");
+            Console.WriteLine(" Produtos cadastrados com sucesso");
 
             //pular linha
             Console.WriteLine();
-
+            Console.WriteLine();
+            Console.WriteLine("                          -------------");            
+            Console.WriteLine("                          -- MERCADO --");
+            Console.WriteLine("                          -------------");
+            //pular linha
+            Console.WriteLine();
             Console.WriteLine($"Codigo do produto: {1} - Descrição do produto: {produto1.DescricaoProduto}, {produto1.Marca}, {produto1.Preco:C2}");
             Console.WriteLine($"Codigo do produto: {2} - Descrição do produto: {produto2.DescricaoProduto}, {produto2.Marca}, {produto2.Preco:C2}");
             Console.WriteLine($"Codigo do produto: {3} - Descrição do produto: {produto3.DescricaoProduto}, {produto3.Marca}, {produto3.Preco:C2}");
@@ -143,14 +147,14 @@ namespace Lista_6_Exercicio_4
 
             CarrinhoDeCompras Carrinho = new CarrinhoDeCompras();
             Venda vendaAtual = new Venda();
+            //Cliente clienteAtual = new Cliente();
+            //Vendedor vendedorAtual = new Vendedor();
             List<Venda> Vendas = new List<Venda>();
             Venda venda1 = new Venda(Carrinho, vendedor1, cliente1);
             Venda venda2 = new Venda(Carrinho, vendedor2, cliente2);
             Vendas.Add(venda1);
             Vendas.Add(venda2);
-            //Cliente clienteAtual = new Cliente();
-            //Vendedor vendedorAtual = new Vendedor();
-
+            
             static Cliente EncontrarCliente(List<Cliente> clientes, int codigo)
             {
                 Cliente cliente = null;
@@ -215,8 +219,7 @@ namespace Lista_6_Exercicio_4
             //int codigoProduto = Convert.ToInt32(Console.ReadLine());
             ////usa a função "EncontrarProduto" para buscar um elemento baseado no campo "código" do produto.
             //Produto produtoEncontrado = EncontrarProduto(Produtos, codigoProduto);
-
-            Console.WriteLine(" Com base nos produtos cadastrados acima;");
+            
             Console.WriteLine(" Informe a operação desejada:");
             Console.WriteLine(" 1 - Adcionair produto ao carrinho.");
             Console.WriteLine(" 2 - Limpar o carrinho.");
@@ -286,13 +289,11 @@ namespace Lista_6_Exercicio_4
                     vendaAtual.Cliente = new Cliente();
                     vendaAtual.Vendedor = new Vendedor();
                     vendaAtual.Finalizada = true;
-                    Console.WriteLine($" Sua compra: {vendaAtual.Produtos}");
-                    Console.WriteLine($" Seus dados: {vendaAtual.Cliente}");
-                    Console.WriteLine($" Vendedor responsavel: {vendaAtual.Vendedor}");
-                    Console.WriteLine($"Venda finalizada: {vendaAtual.Finalizada}");
+                    Vendas.Add(new Venda());
+                    Console.WriteLine($" Valor total dos produtos adicionados: {vendaAtual.ValorTotalVenda}");                    
+                    Console.WriteLine($" Venda finalizada: {vendaAtual.Finalizada}");
                 }
-
-                Console.WriteLine(" Com base nos produtos cadastrados acima;");
+                               
                 Console.WriteLine(" Informe a operação desejada:");
                 Console.WriteLine(" 1 - Adcionair produto ao carrinho.");
                 Console.WriteLine(" 2 - Limpar o carrinho.");
