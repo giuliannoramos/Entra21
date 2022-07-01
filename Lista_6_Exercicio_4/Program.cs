@@ -110,7 +110,7 @@ namespace Lista_6_Exercicio_4
             Console.WriteLine();
 
             List<Produto> Produtos = new List<Produto>();
-            Produto produto1 = new Produto(1, "Maçã", "Hortifruti", 4);
+            Produto produto1 = new Produto(1, "Maçã", "Hortifruti", 2);
             Produto produto2 = new Produto(2, "Banana", "Hortifruti", 3.5);
             Produto produto3 = new Produto(3, "Alcatra", "Carnes", 35.9);
             Produto produto4 = new Produto(4, "Maminha", "Carnes", 35.9);
@@ -197,9 +197,10 @@ namespace Lista_6_Exercicio_4
             //    {
             //        Console.WriteLine($"Descrição: {produto.DescricaoProduto}");
             //        Console.WriteLine($"Marca: {produto.Marca}");
-            //        Console.WriteLine($"Preço: {produto.Preco}");
+            //        Console.WriteLine($"Preço: {produto.Preco:C2}");
             //    }
             //}
+            //ListarProdutos(Produtos); 
 
             static Produto EncontrarProduto(List<Produto> produtos, int codigo)
             {
@@ -212,13 +213,7 @@ namespace Lista_6_Exercicio_4
                     }
                 }
                 return produto;
-            }
-            //ListarProdutos(Produtos);
-
-            //Console.WriteLine("Insira o código do produto");
-            //int codigoProduto = Convert.ToInt32(Console.ReadLine());
-            ////usa a função "EncontrarProduto" para buscar um elemento baseado no campo "código" do produto.
-            //Produto produtoEncontrado = EncontrarProduto(Produtos, codigoProduto);
+            }                                           
             
             Console.WriteLine(" Informe a operação desejada:");
             Console.WriteLine(" 1 - Adcionair produto ao carrinho.");
@@ -290,8 +285,12 @@ namespace Lista_6_Exercicio_4
                     vendaAtual.Vendedor = new Vendedor();
                     vendaAtual.Finalizada = true;
                     Vendas.Add(new Venda());
-                    Console.WriteLine($" Valor total dos produtos adicionados: {vendaAtual.ValorTotalVenda}");                    
+                    //pular linha
+                    Console.WriteLine();
+                    Console.WriteLine($" Valor total dos produtos adicionados: {vendaAtual.ValorTotalVenda:C2}");                    
                     Console.WriteLine($" Venda finalizada: {vendaAtual.Finalizada}");
+                    //pular linha
+                    Console.WriteLine();
                 }
                                
                 Console.WriteLine(" Informe a operação desejada:");
