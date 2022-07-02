@@ -194,7 +194,63 @@ namespace Lista_6_Exercicio_7
                 Console.WriteLine("9-Finalizar programa.");
                 operacao = (Operacoes)Convert.ToInt32(Console.ReadLine());
             }
+
+            Operacoes2 operacao2;
+            Console.WriteLine("Informe a opção que deseja:");
+            Console.WriteLine("0-Listar todas as viagens;");
+            Console.WriteLine("1-Listar todas as viagens de um mesmo motorista (usando o nome);");
+            Console.WriteLine("2-Listar todas as viagens que possuem um mesmo caminhão (usando o modelo do caminhao);");
+            Console.WriteLine("3-Listar todos os caminhões que fizeram uma viagem com um determinado motorista (usando o nome do motorista);");
+            Console.WriteLine("4-Listar todas as viagens de um caminhão em específico e um motorista específico (usando a placa do caminhão e o nome do motorista);");
+            Console.WriteLine("5-Listar todas as viagens em que um determinado motorista não estava (usando o nome do motorista);");
+            Console.WriteLine("6-Listar todas as viagens em que determinado motorista e determinado caminhão não estavam (usando o nome do motorista e a placa do caminhão);");
+            Console.WriteLine("7-Finalizar programa."); 
+            operacao2 = (Operacoes2)Convert.ToInt32(Console.ReadLine());
+
+            while (operacao2 != Operacoes2.Sair)
+            {
+                switch (operacao2)
+                {
+                    case Operacoes2.ListarTodasViagens:
+                        Viagem ListarViagens()
+                        break;
+                    case Operacoes2.ListarTodosCaminhoesComMesmoMotorista:
+                        
+                        break;
+                    case Operacoes2.ListarViagensCaminhaoComMotorista:
+                        
+                        break;
+                    case Operacoes2.ListarViagensMesmoCaminhao:
+                        
+                        break;
+                    case Operacoes2.ListarViagensMesmoMotorista:
+                        
+                        break;
+                    case Operacoes2.ListarViagensQueMotoristaComCaminhaoNaoEstava:
+                        
+                        break;
+                    case Operacoes2.ListarViagensQueMotoristaNaoEstava:                       
+                            
+                        break;
+                    case Operacoes2.Sair:
+                        
+                        break;
+                   
+                }
+                Console.WriteLine("Informe a opção que deseja:");
+                Console.WriteLine("0-Listar todas as viagens;");
+                Console.WriteLine("1-Listar todas as viagens de um mesmo motorista (usando o nome);");
+                Console.WriteLine("2-Listar todas as viagens que possuem um mesmo caminhão (usando o modelo do caminhao);");
+                Console.WriteLine("3-Listar todos os caminhões que fizeram uma viagem com um determinado motorista (usando o nome do motorista);");
+                Console.WriteLine("4-Listar todas as viagens de um caminhão em específico e um motorista específico (usando a placa do caminhão e o nome do motorista);");
+                Console.WriteLine("5-Listar todas as viagens em que um determinado motorista não estava (usando o nome do motorista);");
+                Console.WriteLine("6-Listar todas as viagens em que determinado motorista e determinado caminhão não estavam (usando o nome do motorista e a placa do caminhão);");
+                Console.WriteLine("7-Finalizar programa.");
+                operacao2 = (Operacoes2)Convert.ToInt32(Console.ReadLine());
+            }
         }
+
+    
         static Motorista EncontrarMotorista(List<Motorista> motoristas, int id)
         {
             //return motoristas.Find(x=> x.Id == id);
@@ -211,5 +267,20 @@ namespace Lista_6_Exercicio_7
         {
             return viagens.SingleOrDefault(x => x.Id == id);
         }
+        
+        public static List<Viagem> ListarViagens(List<Viagem> viagens, int id)
+        {
+            //consulta usando linq:
+            var viagensFeitas = viagens.Where(x => x.Id == (id)).ToList();
+            return viagensFeitas;
+        }
+
+        public static List<Motorista> MostrarViagensDeMotorista(List<Motorista> motoristas, string Nome)
+        {
+            //consulta usando linq:
+            var viagensDoMotorista = motoristas.Where(x => x.Nome.Contains(Nome)).ToList();
+            return viagensDoMotorista;
+        }
+
     }
 }
