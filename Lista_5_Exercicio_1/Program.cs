@@ -46,11 +46,16 @@ namespace Lista_5_Exercicio_1
             }
 
             double[] MaiorIndividual = MaiorNotaIndividual(nota1, nota2, nota3);
+            Console.WriteLine();
             double[] MenorIndividual = MenorNotaIndividual(nota1, nota2, nota3);
+            Console.WriteLine();
             double[] MediaIndividual = MediaNotaIndividual(nota1, nota2, nota3, MenorIndividual, MaiorIndividual, aluno);
+            Console.WriteLine();
             MediaGeral(MediaIndividual);
+            Console.WriteLine();
             MenorNotaGeral(nota1, nota2, nota3);
-            MaiorNotaGeral(MaiorIndividual);
+            Console.WriteLine();
+            MaiorNotaGeral(nota1, nota2, nota3);           
 
         }
 
@@ -142,8 +147,9 @@ namespace Lista_5_Exercicio_1
 
             for (int i = 0; i < 10; i++)
             {
-                MediaGeral = MediaIndividual[i] + MediaIndividual[i] / 20;
+                MediaGeral += MediaIndividual[i];
             }
+            MediaGeral = MediaGeral / 10;
 
             Console.WriteLine($" A MÉDIA GERAL DA TURMA é {MediaGeral}.");
 
@@ -152,19 +158,19 @@ namespace Lista_5_Exercicio_1
 
         static double MenorNotaGeral(double[] nota1, double[] nota2, double[] nota3)
         {
-            double MenorNotaGeral = 0;
+            double MenorNotaGeral = 10;
 
             for (int i = 0; i < nota1.Length; i++)
             {
-                if (nota1[i] <= nota2[i] && nota1[i] <= nota3[i] && nota1[i] <= MenorNotaGeral)
+                if (nota1[i] < nota2[i] && nota1[i] < nota3[i] && nota1[i] < MenorNotaGeral)
                 {
                     MenorNotaGeral = nota1[i];
                 }
-                else if (nota2[i] <= nota1[i] && nota2[i] <= nota3[i] && nota2[i] <= MenorNotaGeral)
+                else if (nota2[i] < nota1[i] && nota2[i] < nota3[i] && nota2[i] < MenorNotaGeral)
                 {
                     MenorNotaGeral = nota2[i];
                 }
-                else if (nota3[i] <= nota1[i] && nota3[i] <= nota2[i] && nota3[i] <= MenorNotaGeral)
+                else if (nota3[i] < nota1[i] && nota3[i] < nota2[i] && nota3[i] < MenorNotaGeral)
                 {
                     MenorNotaGeral = nota3[i];
                 }
@@ -175,24 +181,29 @@ namespace Lista_5_Exercicio_1
             return MenorNotaGeral;
         }
 
-        static double MaiorNotaGeral(double[] MaiorIndividual)
+        static double MaiorNotaGeral(double[] nota1, double[] nota2, double[] nota3)
         {
-            double condicao = 0;
+            double MaiorNotaGeral = 0;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < nota1.Length; i++)
             {
-                for (int u = i; u < 10; u++)
+                if (nota1[i] > nota2[i] && nota1[i] > nota3[i] && nota1[i] > MaiorNotaGeral)
                 {
-                    if (MaiorIndividual[i] > MaiorIndividual[u])
-                    {
-                        condicao = MaiorIndividual[i];
-                    }
+                    MaiorNotaGeral = nota1[i];
+                }
+                else if (nota2[i] > nota1[i] && nota2[i] > nota3[i] && nota2[i] > MaiorNotaGeral)
+                {
+                    MaiorNotaGeral = nota2[i];
+                }
+                else if (nota3[i] > nota1[i] && nota3[i] > nota2[i] && nota3[i] > MaiorNotaGeral)
+                {
+                    MaiorNotaGeral = nota3[i];
                 }
             }
 
-            Console.WriteLine($" A MAIOR NOTA DA TURMA é {condicao}.");
+            Console.WriteLine($" A MAIOR NOTA DA TURMA é {MaiorNotaGeral}.");
 
-            return condicao;
+            return MaiorNotaGeral;
         }
 
     }
