@@ -35,9 +35,9 @@ namespace Lista_2_Exercicio_1
                 salarioAjustado = salario + percentual;
 
                 Console.WriteLine("O salário atual é: " + salario);
-                Console.WriteLine("O percentual é de: " + aumento);
+                Console.WriteLine($"O percentual é de {aumento}%");
                 Console.WriteLine("O aumento do salario é de: " + percentual);
-                Console.WriteLine("O salario rejustado é: " + salarioAjustado);
+                Console.WriteLine("O salario reajustado é: " + salarioAjustado);
 
 
                 conversaoDolar = salario / dolar;

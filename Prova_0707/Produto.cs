@@ -10,7 +10,7 @@ namespace Prova_0707
         public string DescricaoProduto;        
 
         public Produto(int CodigoProduto, string DescricaoProduto)
-        {
+        {            
             this.CodigoProduto = CodigoProduto;
             this.DescricaoProduto = DescricaoProduto;           
         }

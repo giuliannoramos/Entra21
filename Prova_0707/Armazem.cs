@@ -14,21 +14,8 @@ namespace Prova_0707
         {
             this.CodigoArmazem = CodigoArmazem;
             this.DescricaoArmazem = DescricaoArmazem;
-        }
-
-        //public Armazem()
-        //{          
-                        
-        //}
-
-        public void CriarArmazem()
-        {            
-            Console.WriteLine("\nInsira o código para o armazém: ");
-            this.CodigoArmazem = Convert.ToInt32(Console.ReadLine());
-            
-            Console.WriteLine("\nInsira o nome para o armazém: ");
-            this.DescricaoArmazem = Convert.ToString(Console.ReadLine());            
-        }
+        }      
+        
     }
-    
+
 }
