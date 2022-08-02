@@ -22,7 +22,12 @@ namespace SQL_1J
         public string Naturalidade { get; set; }
         public DateTime DataDeNascimento { get; set; }
 
-        public Pessoa() { }
+        public Pessoa(string nome, int id) 
+        {
+            Nome = nome;
+            Id = id;
+        }
+
         public Pessoa(string nome, string cpf, string rg, string endereco, DateTime dataDeNascimento, string naturalidade)
         {
             Nome = nome;

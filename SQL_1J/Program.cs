@@ -7,11 +7,11 @@ namespace SQL_1J
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             string connection = @"Data Source=ITELABD12\SQLEXPRESS;Initial Catalog=CadastroPessoa;Integrated Security=True;";
             List<Pessoa> pessoas = new List<Pessoa>();
+            List<Telefone> telefones = new List<Telefone>();
 
             Console.WriteLine("\n\n Informe a operação desejada:");
             Console.WriteLine(" 1 - Inserir uma pessoa na tabela.");
@@ -19,6 +19,9 @@ namespace SQL_1J
             Console.WriteLine(" 3 - Atualizar cadastro de pessoa.");
             Console.WriteLine(" 4 - Deletar um cadastro de pessoa.");
             Console.WriteLine(" 5 - Inserir um telefone na tabela.");
+            Console.WriteLine(" 6 - Remover um telefone.");
+            Console.WriteLine(" 7 - Listar todos os telefones da tabela.");
+            Console.WriteLine(" 8 - Listar um telefone específico.");
             Console.WriteLine(" 0 - Sair");
             int opcao = Convert.ToInt32(Console.ReadLine());
             while (opcao != 0)
@@ -295,7 +298,7 @@ namespace SQL_1J
                     Console.WriteLine("Insira o ddd:");
                     string ddd = Console.ReadLine();
                     Console.WriteLine("Insira o número:");
-                    string numero = Console.ReadLine();                    
+                    string numero = Console.ReadLine();
 
                     Telefone telefone = new Telefone(pSelecionada, ddd, numero);
 
@@ -309,7 +312,7 @@ namespace SQL_1J
                             SqlCommand command = new SqlCommand(query, sql);
                             command.Parameters.AddWithValue("@pSelecionada", pSelecionada.Id);
                             command.Parameters.AddWithValue("@ddd", telefone.Ddd);
-                            command.Parameters.AddWithValue("@numero", telefone.Numero);                            
+                            command.Parameters.AddWithValue("@numero", telefone.Numero);
                             command.Connection.Open();
                             command.ExecuteNonQuery();
                         }
@@ -324,16 +327,82 @@ namespace SQL_1J
 
                 }
 
+                else if (opcao == 6)
+                {                    
+                    try
+                    {          
+                        
+                        Telefone tSelecionado = SelecionarTelefonePorNome(telefones, pessoas, termo);
+
+                        SqlDataReader resultado;
+                        var query = @"SELECT Nome, Id, IdTelefone, Ddd, Numero FROM Telefone WHERE Nome like CONCAT('%',@termo,'%')";
+                        using (var sql = new SqlConnection(connection))
+                        {
+                            SqlCommand command = new SqlCommand(query, sql);
+                            command.Parameters.AddWithValue("@termo", termo);
+                            command.Parameters.AddWithValue("@Nome", tSelecionado.Nome);
+                            command.Parameters.AddWithValue("@id", tSelecionado.Id);
+                            command.Parameters.AddWithValue("@IdTelefone", tSelecionado.IdTelefone);
+                            command.Parameters.AddWithValue("@Ddd", tSelecionado.Ddd);
+                            command.Parameters.AddWithValue("@Numero", tSelecionado.Numero);
+                            command.Connection.Open();
+                            resultado = command.ExecuteReader();
+
+                            while (resultado.Read())
+                            {
+                                pessoas.Add(new Pessoa(resultado.GetString(resultado.GetOrdinal("Nome")),
+                                                       resultado.GetInt32(resultado.GetOrdinal("Id"))));
+
+                                telefones.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),
+                                                           resultado.GetString(resultado.GetOrdinal("Ddd")),
+                                                           resultado.GetString(resultado.GetOrdinal("Numero"))));
+                            }
+
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine($"{tSelecionado.Nome} localizado ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            var query = @"DELETE FROM Telefone WHERE Nome = @Nome";
+                            using (var sql = new SqlConnection(connection))
+                            {
+                                SqlCommand command = new SqlCommand(query, sql);
+                                command.Parameters.AddWithValue("@id", tSelecionado.Id);
+                                command.Connection.Open();
+                                command.ExecuteNonQuery();
+                            }
+                            Console.WriteLine("Telefone removido com sucesso.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Erro: " + ex.Message);
+                    }
+                }
+
+                else if (opcao == 7)
+                {
+
+                }
+
+                else if (opcao == 8)
+                {
+
+                }
+
+
                 Console.WriteLine("\n\n Informe a operação desejada:");
                 Console.WriteLine(" 1 - Inserir uma pessoa na tabela.");
                 Console.WriteLine(" 2 - Consultar cadastros de pessoas.");
                 Console.WriteLine(" 3 - Atualizar cadastro de pessoa.");
                 Console.WriteLine(" 4 - Deletar um cadastro de pessoa.");
                 Console.WriteLine(" 5 - Inserir um telefone na tabela.");
+                Console.WriteLine(" 6 - Remover um telefone.");
+                Console.WriteLine(" 7 - Listar todos os telefones da tabela.");
+                Console.WriteLine(" 8 - Listar um telefone específico.");
                 Console.WriteLine(" 0 - Sair");
                 opcao = Convert.ToInt32(Console.ReadLine());
             }
         }
+
         static Pessoa EncontrarPessoa(List<Pessoa> pessoas, int Id)
         {
             Pessoa pessoa = null;
@@ -346,5 +415,47 @@ namespace SQL_1J
             }
             return pessoa;
         }
+
+        static Telefone SelecionarTelefonePorNome(List<Telefone> telefones, List<Pessoa> pessoas, string termo)
+        {
+            Console.WriteLine("\n Insira o nome da pessoa para remover o telefone");
+            string termo = Convert.ToString(Console.ReadLine());
+
+            string connection = @"Data Source=ITELABD12\SQLEXPRESS;Initial Catalog=CadastroPessoa;Integrated Security=True;";
+            SqlDataReader resultado;
+            var query = @"SELECT Nome, Id, IdTelefone, Ddd, Numero FROM Telefone WHERE Nome like CONCAT('%',@termo,'%')";
+            using (var sql = new SqlConnection(connection))
+            {
+                SqlCommand command = new SqlCommand(query, sql);
+                command.Parameters.AddWithValue("@termo", termo);
+                command.Parameters.AddWithValue("@Nome", tSelecionado.Nome);
+                command.Parameters.AddWithValue("@id", tSelecionado.Id);
+                command.Parameters.AddWithValue("@IdTelefone", tSelecionado.IdTelefone);
+                command.Parameters.AddWithValue("@Ddd", tSelecionado.Ddd);
+                command.Parameters.AddWithValue("@Numero", tSelecionado.Numero);
+                command.Connection.Open();
+                resultado = command.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    pessoas.Add(new Pessoa(resultado.GetString(resultado.GetOrdinal("Nome")),
+                                           resultado.GetInt32(resultado.GetOrdinal("Id"))));
+
+                    telefones.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),
+                                               resultado.GetString(resultado.GetOrdinal("Ddd")),
+                                               resultado.GetString(resultado.GetOrdinal("Numero"))));
+                }
+            }
+                Telefone telefone = null;            
+
+            for (int i = 0; i < telefones.Count; i++)
+            {
+                if (pessoas[i].Nome == termo)
+                {
+                    telefone = telefones[i];
+                }
+            }
+            return telefone;
+        }        
     }
 }
