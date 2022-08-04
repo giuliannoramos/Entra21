@@ -330,21 +330,28 @@ namespace SQL_1J
                 else if (opcao == 6)
                 {                    
                     try
-                    {          
-                        
-                        Telefone tSelecionado = SelecionarTelefonePorNome(telefones, pessoas, termo);
+                    {
+                        Console.WriteLine("\n Insira o ID da pessoa para remover o telefone");
+                        int idPessoa = Convert.ToInt32(Console.ReadLine());
+                        Pessoa pSelecionada = EncontrarPessoa(pessoas, idPessoa);
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"{pSelecionada.Nome} localizado ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                                                
+                        Telefone tSelecionado = EncontrarTelefone(telefones, idPessoa);
+                                              
 
                         SqlDataReader resultado;
                         var query = @"SELECT Nome, Id, IdTelefone, Ddd, Numero FROM Telefone WHERE Nome like CONCAT('%',@termo,'%')";
                         using (var sql = new SqlConnection(connection))
-                        {
+                        {                             
                             SqlCommand command = new SqlCommand(query, sql);
-                            command.Parameters.AddWithValue("@termo", termo);
-                            command.Parameters.AddWithValue("@Nome", tSelecionado.Nome);
-                            command.Parameters.AddWithValue("@id", tSelecionado.Id);
+                            command.Parameters.AddWithValue("@termo", pSelecionada);
+                            command.Parameters.AddWithValue("@Nome", pSelecionada.Nome);                            
+                            command.Parameters.AddWithValue("@id", pSelecionada.Id);
                             command.Parameters.AddWithValue("@IdTelefone", tSelecionado.IdTelefone);
                             command.Parameters.AddWithValue("@Ddd", tSelecionado.Ddd);
-                            command.Parameters.AddWithValue("@Numero", tSelecionado.Numero);
+                            command.Parameters.AddWithValue("@Numero", tSelecionado.Numero);                            
                             command.Connection.Open();
                             resultado = command.ExecuteReader();
 
@@ -357,21 +364,13 @@ namespace SQL_1J
                                                            resultado.GetString(resultado.GetOrdinal("Ddd")),
                                                            resultado.GetString(resultado.GetOrdinal("Numero"))));
                             }
-
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine($"{tSelecionado.Nome} localizado ");
+                            Console.WriteLine($"{tSelecionado.IdTelefone} localizado ");
                             Console.ForegroundColor = ConsoleColor.White;
-                            var query = @"DELETE FROM Telefone WHERE Nome = @Nome";
-                            using (var sql = new SqlConnection(connection))
-                            {
-                                SqlCommand command = new SqlCommand(query, sql);
-                                command.Parameters.AddWithValue("@id", tSelecionado.Id);
-                                command.Connection.Open();
-                                command.ExecuteNonQuery();
-                            }
-                            Console.WriteLine("Telefone removido com sucesso.");
+                            RemoverTelefone(tSelecionado);
                         }
                     }
+
                     catch (Exception ex)
                     {
                         Console.WriteLine("Erro: " + ex.Message);
@@ -380,7 +379,45 @@ namespace SQL_1J
 
                 else if (opcao == 7)
                 {
+                    try
+                    {
+                        SqlDataReader resultado;
+                        var query = @"SELECT IdTelefone, Ddd, Numero FROM Telefone";
+                        using (var sql = new SqlConnection(connection))
+                        {
+                            SqlCommand command = new SqlCommand(query, sql);
+                            command.Connection.Open();
+                            resultado = command.ExecuteReader();
 
+                            while (resultado.Read())
+                            {
+                                telefones.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),                                           
+                                                           resultado.GetString(resultado.GetOrdinal("Ddd")),
+                                                           resultado.GetString(resultado.GetOrdinal("Numero"))));
+                            }
+                        }
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("\n\n¦==============================================================¦");
+                        Console.WriteLine("¦====================== LISTA DE TELEFONES ====================¦");
+                        Console.WriteLine("¦==============================================================¦");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        foreach (Telefone t in telefones)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("\n========Inicio========");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("Id: " + t.IdTelefone);                            
+                            Console.WriteLine("CPF: " + t.Ddd);
+                            Console.WriteLine("Rg: " + t.Numero);                            
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("==========Fim=========");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Erro: " + ex.Message);
+                    }
                 }
 
                 else if (opcao == 8)
@@ -416,46 +453,45 @@ namespace SQL_1J
             return pessoa;
         }
 
-        static Telefone SelecionarTelefonePorNome(List<Telefone> telefones, List<Pessoa> pessoas, string termo)
+        static Telefone EncontrarTelefone(List<Telefone> telefones, int Id)
         {
-            Console.WriteLine("\n Insira o nome da pessoa para remover o telefone");
-            string termo = Convert.ToString(Console.ReadLine());
-
-            string connection = @"Data Source=ITELABD12\SQLEXPRESS;Initial Catalog=CadastroPessoa;Integrated Security=True;";
-            SqlDataReader resultado;
-            var query = @"SELECT Nome, Id, IdTelefone, Ddd, Numero FROM Telefone WHERE Nome like CONCAT('%',@termo,'%')";
-            using (var sql = new SqlConnection(connection))
-            {
-                SqlCommand command = new SqlCommand(query, sql);
-                command.Parameters.AddWithValue("@termo", termo);
-                command.Parameters.AddWithValue("@Nome", tSelecionado.Nome);
-                command.Parameters.AddWithValue("@id", tSelecionado.Id);
-                command.Parameters.AddWithValue("@IdTelefone", tSelecionado.IdTelefone);
-                command.Parameters.AddWithValue("@Ddd", tSelecionado.Ddd);
-                command.Parameters.AddWithValue("@Numero", tSelecionado.Numero);
-                command.Connection.Open();
-                resultado = command.ExecuteReader();
-
-                while (resultado.Read())
-                {
-                    pessoas.Add(new Pessoa(resultado.GetString(resultado.GetOrdinal("Nome")),
-                                           resultado.GetInt32(resultado.GetOrdinal("Id"))));
-
-                    telefones.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),
-                                               resultado.GetString(resultado.GetOrdinal("Ddd")),
-                                               resultado.GetString(resultado.GetOrdinal("Numero"))));
-                }
-            }
-                Telefone telefone = null;            
-
+            Telefone telefone = null;
             for (int i = 0; i < telefones.Count; i++)
             {
-                if (pessoas[i].Nome == termo)
+                if (telefones[i].IdTelefone == Id)
                 {
                     telefone = telefones[i];
                 }
             }
             return telefone;
-        }        
+        }
+
+        static string EncontrarPessoaPeloNome(List<Pessoa> pessoas, string nome)
+        {
+            Pessoa pessoa = null;
+            for (int i = 0; i < pessoas.Count; i++)
+            {
+                if (pessoas[i].Nome == nome)
+                {
+                    pessoa = pessoas[i];
+                }
+            }
+            return nome;
+        }
+
+        static void RemoverTelefone(Telefone tSelecionado)
+        {
+            string connection = @"Data Source=ITELABD12\SQLEXPRESS;Initial Catalog=CadastroPessoa;Integrated Security=True;";
+            var query = @"DELETE FROM Telefone WHERE Nome = @Nome";
+            using (var sql = new SqlConnection(connection))
+            {
+                SqlCommand command = new SqlCommand(query, sql);
+                command.Parameters.AddWithValue("@Nome", tSelecionado.Nome);
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+            Console.WriteLine("Telefone removido com sucesso.");
+        }
+        
     }
 }

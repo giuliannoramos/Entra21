@@ -36,5 +36,6 @@ namespace SQL_1J
             Ddd = ddd;
             Numero = numero;
         }
+        
     }
 }
