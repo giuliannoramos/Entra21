@@ -11,9 +11,7 @@ namespace _1Api.Controllers
     [ApiController]
     public class PessoasController : ControllerBase
     {
-        private static readonly List<Pessoa> pessoas = new List<Pessoa>();
-        private static readonly List<Telefone> telefones = new List<Telefone>();
-        private static readonly List<Endereco> enderecos = new List<Endereco>();
+        private static readonly List<Pessoa> pessoas = new List<Pessoa>();        
 
         [HttpGet]
         public IActionResult GetAll()
@@ -24,6 +22,18 @@ namespace _1Api.Controllers
                 resultado = pessoas
             }));
             //https://localhost:44365/pessoas/getall?
+        }
+
+        [HttpGet]
+        public IActionResult GetByName(string nome)
+        {
+            var resultado = pessoas.Where(x => x.Nome.Contains(nome));
+            if (resultado == null || !resultado.Any())
+            {
+                return NotFound(new { mensage = $"nao foram encontrado nomes" });
+            }
+            return Ok(new { resultado });
+            //https://localhost:44365/pessoas/getbyname?resultado=GiuliannoRamos
         }
 
         [HttpPost]
@@ -46,47 +56,29 @@ namespace _1Api.Controllers
             }));   
         }
 
-        [HttpPost]
-        public IActionResult SaveWithPhone([FromBody] CadastrarPessoaViewModel pessoaViewModel)
-        {
-            if (pessoaViewModel == null)
-                return new JsonResult(new { sucesso = false, mensagem = "Não há dados" });
+        //https://localhost:44365/pessoas/savepessoa?validar=false
+       /*{
+            "nome": "Giulianno Ramos",
+            "idade": 22,
+            "endereco":
+           {
+            "rua": "1100",
+            "numerocasa": "132"
+           },
+           "telefone":
+           [
+              {
+              "ddd": "47",
+              "numerotelefone": "988887777"
+              },
+              {
+              "ddd": "46",
+              "numerotelefone": "988887777"
+              }
+           ]
+          }*/
 
-            pessoas.Add(pessoaViewModel.Pessoa);
 
-            pessoaViewModel.Endereco.ForEach(e => enderecos.Add(e));
-            pessoaViewModel.Telefone.ForEach(t => telefones.Add(t));
-
-            return Ok();
-
-            //https://localhost:44365/pessoas/savewithphone
-            /*{
-                 "pessoa" : 
-                {
-                   "nome": "Giulianno Ramos",        
-                   "idade": 22
-                },
-                   "endereco": 
-                   [
-                      {
-                         "rua" : "Rua 1000",
-                         "NumeroCasa" : "123"
-                      }       
-                   ],
-                   "telefone": 
-                   [
-                      {
-                         "ddd" : "47",
-                         "numero" : "988888888"
-                      },
-                      {
-                         "ddd" : "47",
-                         "numero" : "977777777"
-                      }
-                   ]
-              }*/
-
-        }
 
     }
 }
