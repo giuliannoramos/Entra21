@@ -43,33 +43,50 @@ namespace _1Api.Controllers
             {
                 sucesso = false,
                 mensagem = "Pessoa cadastrada"
-            }));
+            }));   
+        }
+
+        [HttpPost]
+        public IActionResult SaveWithPhone([FromBody] CadastrarPessoaViewModel pessoaViewModel)
+        {
+            if (pessoaViewModel == null)
+                return new JsonResult(new { sucesso = false, mensagem = "Não há dados" });
+
+            pessoas.Add(pessoaViewModel.Pessoa);
+
+            pessoaViewModel.Endereco.ForEach(e => enderecos.Add(e));
+            pessoaViewModel.Telefone.ForEach(t => telefones.Add(t));
+
+            return Ok();
+
             //https://localhost:44365/pessoas/SavePessoa?validar=false
             /*{
-                "pessoa" : 
-    {
-                    "nome": "Giulianno Ramos",        
-        "idade": 22
-    },
-    "endereco": 
-    [
-        {
-                    "rua" : "Rua 1000",
-            "NumeroCasa" : "123"
-        }       
-    ],
-    "telefone": 
-    [
-        {
-                    "ddd" : "47",
-                 "numero" : "988888888"
-              },
-              {
-                    "ddd" : "47",
-            "numero" : "977777777"
-               }
-              ]
-          }*/
+                 "pessoa" : 
+                {
+                   "nome": "Giulianno Ramos",        
+                   "idade": 22
+                },
+                   "endereco": 
+                   [
+                      {
+                         "rua" : "Rua 1000",
+                         "NumeroCasa" : "123"
+                      }       
+                   ],
+                   "telefone": 
+                   [
+                      {
+                         "ddd" : "47",
+                         "numero" : "988888888"
+                      },
+                      {
+                         "ddd" : "47",
+                         "numero" : "977777777"
+                      }
+                   ]
+              }*/
+
         }
+
     }
 }
