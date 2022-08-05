@@ -59,7 +59,7 @@ namespace _1Api.Controllers
 
             return Ok();
 
-            //https://localhost:44365/pessoas/SavePessoa?validar=false
+            //https://localhost:44365/pessoas/savewithphone
             /*{
                  "pessoa" : 
                 {
