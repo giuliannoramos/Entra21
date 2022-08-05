@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace _1Api.Controllers
 {
+    //nome da controller / action que deseja (no caso Values/Adicao) 
     [Route("[controller]/[action]")]
     [ApiController]
     public class ValuesController : ControllerBase
