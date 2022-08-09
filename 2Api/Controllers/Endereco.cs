@@ -10,12 +10,5 @@ namespace _2Api.Controllers
         public string Bairro { get; set; }
         public string Rua { get; set; }
         public string NumeroCasa { get; set; }
-
-        public Endereco(string bairro, string rua, string numeroCasa)
-        {
-            Bairro = bairro;
-            Rua = rua;
-            NumeroCasa = numeroCasa;           
-        }
     }
 }

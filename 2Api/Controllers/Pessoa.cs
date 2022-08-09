@@ -11,14 +11,5 @@ namespace _2Api.Controllers
         public string Cpf { get; set; }
         public Endereco Endereco { get; set; }
         public List<Telefones> Telefones { get; set; }
-
-        public Pessoa(string nome, string cpf, Endereco endereco, List<Telefones> telefones)
-        {
-            Nome = nome;
-            Cpf = cpf;
-            Endereco = endereco;
-            Telefones = telefones;
-        }
-            
     }
 }

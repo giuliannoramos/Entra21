@@ -20,9 +20,12 @@ namespace _2Api.Controllers
         {
             try
             {
-                string connection = @"Data Source=ITELABD12\SQLEXPRESS;Initial Catalog=Api;Integrated Security=True;";
+                string connection = @"Data Source=ITELABD12\SQLEXPRESS.Api; Initial Catalog=Api; Integrated Security=True;";
                 SqlDataReader resultado;
-                var query = @"SELECT Id, Nome, Cpf, Bairro, Rua, NumeroCasa, Ddd, Numero FROM Pessoa";
+                var query = @"SELECT * FROM Pessoa p 
+                            INNER JOIN Endereco e ON p.Id = e.IdPessoaEndereco
+                            INNER JOIN Telefones t ON t.Id = t.IdPessoaTelefone
+                            WHERE p.Nome LIKE CONCAT'%',@nome,'%'";
                 using (var sql = new SqlConnection(connection))
                 {
                     SqlCommand command = new SqlCommand(query, sql);
@@ -58,11 +61,14 @@ namespace _2Api.Controllers
             pessoas.Add(pessoa);
 
             try
-            {                
-                string connection = @"Data Source=ITELABD12\SQLEXPRESS;Initial Catalog=Api;Integrated Security=True;";
-                var query = "insert into Pessoa " +
-                          "(Nome, Cpf, Bairro, Rua, NumeroCasa, Ddd, Numero) " +
-                          "values (@nome, @cpf, @bairro, @rua, @numeroCasa, @ddd, @numero)";
+            {
+                int IdPessoaCriada = -1;
+                
+                string connection = @"Data Source=ITELABD12\SQLEXPRESS.Api; Initial Catalog=Api; Integrated Security=True;";
+                var query = @"INSERT INTO Pessoa 
+                           (Nome, Cpf, Bairro, Rua, NumeroCasa, Ddd, Numero)
+                           OUTPUT Inserted.Id
+                           values (@nome, @cpf, @bairro, @rua, @numeroCasa, @ddd, @numero)";
                 using (var sql = new SqlConnection(connection))
                 {
                     SqlCommand command = new SqlCommand(query, sql);
@@ -74,7 +80,7 @@ namespace _2Api.Controllers
                     command.Parameters.AddWithValue("@ddd", pessoa.Telefones);
                     command.Parameters.AddWithValue("@numero", pessoa.Telefones);
                     command.Connection.Open();
-                    command.ExecuteNonQuery();
+                    IdPessoaCriada = (int)command.ExecuteScalar();
                 }
             }
             catch (Exception ex)
@@ -99,7 +105,7 @@ namespace _2Api.Controllers
                  "rua": "1100",
                  "numerocasa": "132"
                 },
-                "telefone":
+                "telefones":
                 [
                    {
                    "ddd": "47",
