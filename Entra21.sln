@@ -103,6 +103,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1Api", "1Api\1Api.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2Api", "2Api\2Api.csproj", "{3C4F0466-13B2-442A-853A-D95E24116EA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3Api", "3Api\3Api.csproj", "{D3E3BE3C-B7E4-4808-9D3D-F2CBE876A96B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -309,6 +311,10 @@ Global
 		{3C4F0466-13B2-442A-853A-D95E24116EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C4F0466-13B2-442A-853A-D95E24116EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C4F0466-13B2-442A-853A-D95E24116EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3E3BE3C-B7E4-4808-9D3D-F2CBE876A96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3E3BE3C-B7E4-4808-9D3D-F2CBE876A96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3E3BE3C-B7E4-4808-9D3D-F2CBE876A96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3E3BE3C-B7E4-4808-9D3D-F2CBE876A96B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
