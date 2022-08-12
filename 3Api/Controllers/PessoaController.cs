@@ -18,38 +18,71 @@ namespace _3Api.Controllers
         {
             pessoas.Add(pessoa);
             return Ok(pessoa);
+
+            //https://localhost:44369/Pessoa/salvar?
+            //{
+            //   "nome": "Giulianno",
+            //   "cpf": "00000000000",
+            //   "idade": 23
+            //}
         }
 
         [HttpPut]
-        public IActionResult Atualizar(List<Pessoa> pessoa, string nome)
+        public IActionResult Atualizar(Pessoa pessoa, string nome)
         {
             Pessoa pEncontrada;            
-            pEncontrada = EncontrarPessoa(pessoa, nome);
+            pEncontrada = EncontrarPessoa(nome);
 
+            if (pEncontrada != null)
+            {
+                pEncontrada.Nome = pessoa.Nome;
+                pEncontrada.Cpf = pessoa.Cpf;
+                pEncontrada.Idade = pessoa.Idade;
+            }
+            else { }
+            
             return Ok(pEncontrada);
-        }        
+
+            //https://localhost:44369/Pessoa/Atualizar?nome=Giulianno
+            //{
+            //  "nome": "Giulianno Lechinski Ramos",
+            //  "cpf": "00000000000",
+            //  "idade": 23
+            //}
+        }
 
         [HttpGet]
-        public List<Pessoa> BuscarTodos(List<Pessoa> pessoas, string nome)
-        {            
-            var pessoasEncontradas = pessoas.Where(x => x.Nome == (nome)).ToList();
-            return pessoasEncontradas;
+        public IActionResult BuscarTodos()
+        {
+            return Ok(new JsonResult(new
+            {
+                sucesso = true,
+                resultado = pessoas
+            }));
+
+            //https://localhost:44369/Pessoa/BuscarTodos?
         }
 
         [HttpDelete]
-        public IActionResult Remover(List<Pessoa> pessoa, string nome)
+        public IActionResult Remover(string nome)
         {
+            bool delete;
             Pessoa pEncontrada;
-            pEncontrada = EncontrarPessoa(pessoa, nome);
-            
-            return Ok(pEncontrada);
+            pEncontrada = EncontrarPessoa(nome);
+            if (pEncontrada != null)
+            {
+                pessoas.Remove(pEncontrada);
+                delete = true;
+            }
+            else delete = false;
+            return Ok(delete);
+
+            //https://localhost:44369/Pessoa/Remover?nome=Giulianno
         }
 
-        static Pessoa EncontrarPessoa(List<Pessoa> pessoas, string nome)
+        static Pessoa EncontrarPessoa(string nome)
         {
             return pessoas.SingleOrDefault(x => x.Nome == nome);
-        }
-
-        //https://localhost:44369/
+        }        
     }
 }
