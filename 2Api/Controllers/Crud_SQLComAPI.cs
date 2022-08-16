@@ -7,14 +7,44 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 
+
 namespace _2Api.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
     public class Crud_SQLComAPI : ControllerBase
     {
-        private static readonly List<Pessoa> pessoas = new List<Pessoa>();
-        
+        private readonly PessoaRepository _pessoaRepository;
+        private static readonly List<Pessoa> pessoas = new List<Pessoa>();        
+        public Crud_SQLComAPI()
+        {
+            _pessoaRepository = new PessoaRepository();
+        }
+
+        [HttpPost]
+        public IActionResult Salvar(SalvarPessoaViewModel salvarPessoaViewModel)
+        {
+            if (salvarPessoaViewModel == null)
+                return Ok("Não foram informados dados");
+
+            if (salvarPessoaViewModel.Pessoa == null)
+                return Ok("Dados da pessoa não informados.");
+
+            if (salvarPessoaViewModel.Endereco == null)
+                throw new ArgumentNullException($"campo {nameof(salvarPessoaViewModel.Endereco)} vazio ou nulo.");
+
+            if (salvarPessoaViewModel.Telefones == null || !salvarPessoaViewModel.Telefones.Any())
+                throw new ArgumentNullException($"campo {nameof(salvarPessoaViewModel.Telefones)} vazio ou nulo.");
+
+            var resultado = _pessoaRepository.SalvarPessoa(salvarPessoaViewModel.Pessoa,
+                                                           salvarPessoaViewModel.Endereco,
+                                                           salvarPessoaViewModel.Telefones);
+
+            if (resultado) return Ok("Pessoa cadastrada com sucesso.");
+
+            return Ok("Houve um problema ao salvar. Pessoa não cadastrada.");
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -66,19 +96,14 @@ namespace _2Api.Controllers
                 
                 string connection = @"Data Source=ITELABD12\SQLEXPRESS.Api; Initial Catalog=Api; Integrated Security=True;";
                 var query = @"INSERT INTO Pessoa 
-                           (Nome, Cpf, Bairro, Rua, NumeroCasa, Ddd, Numero)
+                           (Nome, Cpf)
                            OUTPUT Inserted.Id
-                           values (@nome, @cpf, @bairro, @rua, @numeroCasa, @ddd, @numero)";
+                           values (@nome, @cpf)";
                 using (var sql = new SqlConnection(connection))
                 {
                     SqlCommand command = new SqlCommand(query, sql);
                     command.Parameters.AddWithValue("@nome", pessoa.Nome);
-                    command.Parameters.AddWithValue("@cpf", pessoa.Cpf);
-                    command.Parameters.AddWithValue("@bairro", pessoa.Endereco);
-                    command.Parameters.AddWithValue("@rua", pessoa.Endereco);
-                    command.Parameters.AddWithValue("@numeroCasa", pessoa.Endereco);
-                    command.Parameters.AddWithValue("@ddd", pessoa.Telefones);
-                    command.Parameters.AddWithValue("@numero", pessoa.Telefones);
+                    command.Parameters.AddWithValue("@cpf", pessoa.Cpf);                    
                     command.Connection.Open();
                     IdPessoaCriada = (int)command.ExecuteScalar();
                 }
@@ -90,7 +115,7 @@ namespace _2Api.Controllers
 
             return (new JsonResult(new
             {
-                sucesso = false,
+                sucesso = true,
                 mensagem = "Pessoa cadastrada"
 
             }));
