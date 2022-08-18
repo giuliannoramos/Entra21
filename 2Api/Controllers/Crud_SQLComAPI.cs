@@ -43,84 +43,8 @@ namespace _2Api.Controllers
             if (resultado) return Ok("Pessoa cadastrada com sucesso.");
 
             return Ok("Houve um problema ao salvar. Pessoa não cadastrada.");
-        }
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            try
-            {
-                string connection = @"Data Source=ITELABD12\SQLEXPRESS.Api; Initial Catalog=Api; Integrated Security=True;";
-                SqlDataReader resultado;
-                var query = @"SELECT * FROM Pessoa p 
-                            INNER JOIN Endereco e ON p.Id = e.IdPessoaEndereco
-                            INNER JOIN Telefones t ON t.Id = t.IdPessoaTelefone
-                            WHERE p.Nome LIKE CONCAT'%',@nome,'%'";
-                using (var sql = new SqlConnection(connection))
-                {
-                    SqlCommand command = new SqlCommand(query, sql);
-                    command.Connection.Open();
-                    resultado = command.ExecuteReader();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Erro: " + ex.Message);
-            }
-
-            return Ok(new JsonResult(new
-            {
-                sucesso = true,
-                resultado = pessoas
-            }));
-            //https://localhost:44319/crud_sqlcomapi/getall?          
-
-        }
-
-        [HttpPost]
-        public IActionResult SavePessoa(Pessoa pessoa, bool validar)
-        {       
-            if (validar)
-            {     
-                return Ok(new JsonResult(new
-                {
-                    sucesso = false,
-                    mensagem = "Pessoa informada está vazia"
-                }));
-            }
-            pessoas.Add(pessoa);
-
-            try
-            {
-                int IdPessoaCriada = -1;
-                
-                string connection = @"Data Source=ITELABD12\SQLEXPRESS.Api; Initial Catalog=Api; Integrated Security=True;";
-                var query = @"INSERT INTO Pessoa 
-                           (Nome, Cpf)
-                           OUTPUT Inserted.Id
-                           values (@nome, @cpf)";
-                using (var sql = new SqlConnection(connection))
-                {
-                    SqlCommand command = new SqlCommand(query, sql);
-                    command.Parameters.AddWithValue("@nome", pessoa.Nome);
-                    command.Parameters.AddWithValue("@cpf", pessoa.Cpf);                    
-                    command.Connection.Open();
-                    IdPessoaCriada = (int)command.ExecuteScalar();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Erro: " + ex.Message);
-            }
-
-            return (new JsonResult(new
-            {
-                sucesso = true,
-                mensagem = "Pessoa cadastrada"
-
-            }));
-
-            //https://localhost:44319/crud_sqlcomapi/savepessoa?validar=false
+            //https://localhost:44319/crud_sqlcomapi/salvar
             /*{
                  "nome": "Giulianno Ramos",
                  "cpf": "00000000000",
@@ -142,7 +66,30 @@ namespace _2Api.Controllers
                    }
                 ]
                }*/
-
         }
+
+        [HttpPost]
+        public IActionResult BuscarPorNome(string nome)
+        {
+            var resultado = _pessoaRepository.BuscarPorNome(nome);
+
+            if (resultado == null || !resultado.Any())
+                return NotFound("Nenhum registro encontrado com o nome informado.");
+
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        public IActionResult BuscarTodos()
+        {
+            var resultado = _pessoaRepository.BuscarTodos();
+
+            if (resultado == null)
+                return NotFound();
+
+            return Ok(resultado);
+        } 
+        
     }
 }
+

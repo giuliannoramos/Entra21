@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace _2Api.Controllers
 {
     public class PessoaRepository
     {
-        private readonly string connection = @"Data Source=ITELABD12\SQLEXPRESS.Api; Initial Catalog=Api; Integrated Security=True;";
+        private readonly string _connection = @"Data Source=ITELABD12\SQLEXPRESS; Initial Catalog=Api; Integrated Security=True;";
         public bool SalvarPessoa(Pessoa pessoa, Endereco endereco, List<Telefones> telefones)
         {
             int IdPessoaCriada = -1;
@@ -18,7 +19,7 @@ namespace _2Api.Controllers
                               (Nome, Cpf) 
                               OUTPUT Inserted.Id
                               VALUES (@nome,@cpf)";
-                using (var sql = new SqlConnection(connection))
+                using (var sql = new SqlConnection(_connection))
                 {
                     SqlCommand command = new SqlCommand(query, sql);
                     command.Parameters.AddWithValue("@nome", pessoa.Nome);
@@ -46,10 +47,10 @@ namespace _2Api.Controllers
             {
                 foreach (var telefone in telefones)
                 {
-                    var query = @"INSERT INTO Telefone 
-                              (DDD, Numero, IdPessoa)                               
+                    var query = @"INSERT INTO Telefones 
+                              (Ddd, Numero, IdPessoaTelefone)                               
                               VALUES (@ddd,@numero,@idPessoa)";
-                    using (var sql = new SqlConnection(connection))
+                    using (var sql = new SqlConnection(_connection))
                     {
                         SqlCommand command = new SqlCommand(query, sql);
                         command.Parameters.AddWithValue("@ddd", telefone.Ddd);
@@ -71,9 +72,9 @@ namespace _2Api.Controllers
             try
             {
                 var query = @"INSERT INTO Endereco 
-                              (Bairro, Rua, NumeroCasa, IdPessoa)                               
+                              (Bairro, Rua, NumeroCasa, IdPessoaEndereco)                               
                               VALUES (@bairro,@rua,@numeroCasa, @idPessoa)";
-                using (var sql = new SqlConnection(connection))
+                using (var sql = new SqlConnection(_connection))
                 {
                     SqlCommand command = new SqlCommand(query, sql);
                     command.Parameters.AddWithValue("@bairro", endereco.Bairro);
@@ -89,6 +90,115 @@ namespace _2Api.Controllers
             {
                 Console.WriteLine("Erro: " + ex.Message);
             }
+        }
+          
+        
+        public List<PessoaDto> BuscarPorNome(string nome)
+        {
+            List<PessoaDto> pessoasEncontradas;
+            try
+            {
+                var query = @"SELECT Id, Nome, Cpf FROM Pessoa
+                                      WHERE Nome like CONCAT('%',@nome,'%')";
+
+                using (var connection = new SqlConnection(_connection))
+                {
+                    var parametros = new
+                    {
+                        nome
+                    };
+                    pessoasEncontradas = connection.Query<PessoaDto>(query, parametros).ToList();
+                }
+
+                pessoasEncontradas.ForEach(e =>
+                {
+                    e.Endereco = BuscarEnderecoPessoa(e.Id);
+                    e.Telefones = BuscarTelefonesPessoa(e.Id);
+                });
+
+                return pessoasEncontradas;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro: " + ex.Message);
+                return null;
+            }
+        }
+          
+
+        public List<PessoaDto> BuscarTodos()
+        {
+            List<PessoaDto> pessoasEncontradas;
+            try
+            {
+                var query = @"SELECT Id, Nome, Cpf FROM Pessoa";
+
+                using (var connection = new SqlConnection(_connection))
+                {
+                    pessoasEncontradas = connection.Query<PessoaDto>(query).ToList();
+                }
+
+                pessoasEncontradas.ForEach(e =>
+                {
+                    e.Endereco = BuscarEnderecoPessoa(e.Id);
+                    e.Telefones = BuscarTelefonesPessoa(e.Id);
+                });
+
+                return pessoasEncontradas;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro: " + ex.Message);
+                return null;
+            }
+
+         //https://localhost:44319/crud_sqlcomapi/BuscarTodos
+        }
+        private EnderecoDto BuscarEnderecoPessoa(int idPessoa)
+        {
+
+            try
+            {
+                var query = @"SELECT * FROM Endereco
+                                      WHERE IdPessoaEndereco = @idPessoa";
+
+                using (var connection = new SqlConnection(_connection))
+                {
+                    var parametros = new
+                    {
+                        idPessoa
+                    };
+                    return connection.QueryFirstOrDefault<EnderecoDto>(query, parametros);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro: " + ex.Message);
+                return null;
+            }
+        }
+        private List<TelefonesDto> BuscarTelefonesPessoa(int idPessoa)
+        {
+            try
+            {
+                var query = @"SELECT * FROM Telefones
+                                      WHERE IdPessoaTelefone = @idPessoa";
+
+                using (var connection = new SqlConnection(_connection))
+                {
+                    var parametros = new
+                    {
+                        idPessoa
+                    };
+                    return connection.Query<TelefonesDto>(query, parametros).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro: " + ex.Message);
+                return null;
+            }
+
         }
     }
 }
